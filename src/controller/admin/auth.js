@@ -1,20 +1,25 @@
 import User from "../../model/user.js";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import sortid from "shortid";
 
 export const signup = (req, res) => {
-  User.findOne({ email: req.body.email }).exec((error, user) => {
+  User.findOne({ email: req.body.email }).exec(async (error, user) => {
     if (user) {
       return res.status(400).json({
         message: "Admin already registered",
       });
     } else {
       const { firstName, lastName, username, email, password } = req.body;
+
+      const hash_password = await bcrypt.hash(password, 10);
+
       const _user = new User({
         firstName,
         lastName,
-        username: Math.random().toString(),
+        username: sortid.generate(),
         email,
-        password,
+        hash_password,
         role: "admin",
       });
 

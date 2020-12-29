@@ -42,8 +42,20 @@ const createCategories = (categories, parentId = null) => {
 
   if (parentId == null) {
     category = categories.filter((cat) => cat.parentId == undefined);
+    /*
+      Electronics
+      Sports
+      Men
+      Women  
+    */
   } else {
     category = categories.filter((cat) => cat.parentId == parentId);
+    /*
+      - Electronics
+        - Mobile
+        - Laptop
+        - Camera
+   */
   }
 
   category.map((cate) => {

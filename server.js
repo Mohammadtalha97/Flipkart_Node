@@ -1,14 +1,17 @@
+import cors from "cors";
 import env from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
+import path from "path";
+import initialDataRoutes from "./src/routes/admin/initialData.js";
 
 import adminRoutes from "./src/routes/admin/auth.js";
 import authRoutes from "./src/routes/auth.js";
+import cartRoutes from "./src/routes/cart.js";
 import categoryRoutes from "./src/routes/category.js";
 import productRoutes from "./src/routes/product.js";
-import cartRoutes from "./src/routes/cart.js";
-import path from "path";
-import cors from "cors";
+
+// import initialData from "./src/routes/admin/initialData.js";
 const __dirname = path.resolve();
 
 //Routes
@@ -42,6 +45,7 @@ app.use("/api", adminRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", productRoutes);
 app.use("/api", cartRoutes);
+app.use("/api", initialDataRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`App Listing To Port ${process.env.PORT}`);
