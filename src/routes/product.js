@@ -4,7 +4,7 @@ import path from "path";
 import shortid from "shortid";
 
 import { adminMiddleware, requireSignin } from "../common-middleware/index.js";
-import { createProduct } from "../controller/product.js";
+import { createProduct, getProductBySlug } from "../controller/product.js";
 
 const router = express.Router();
 const __dirname = path.resolve();
@@ -26,5 +26,7 @@ router.post(
   upload.array("productPicture"),
   createProduct
 );
+
+router.get("/products/:slug", getProductBySlug);
 
 export default router;

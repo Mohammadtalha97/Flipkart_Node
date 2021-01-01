@@ -3,7 +3,12 @@ import path from "path";
 import shortid from "shortid";
 import multer from "multer";
 import { adminMiddleware, requireSignin } from "../common-middleware/index.js";
-import { addCategory, getCategories } from "../controller/category.js";
+import {
+  addCategory,
+  getCategories,
+  updateCategories,
+  deleteCategories,
+} from "../controller/category.js";
 
 const router = express.Router();
 const __dirname = path.resolve();
@@ -25,6 +30,17 @@ router.post(
   upload.single("categoryImage"),
   addCategory
 );
+
 router.get("/category/getCategory", getCategories);
+
+router.post(
+  "/category/update",
+  // requireSignin,
+  // adminMiddleware,
+  upload.array("categoryImage"),
+  updateCategories
+);
+
+router.post("/category/delete", deleteCategories);
 
 export default router;
