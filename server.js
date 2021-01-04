@@ -11,6 +11,7 @@ import cartRoutes from "./src/routes/cart.js";
 import categoryRoutes from "./src/routes/category.js";
 import productRoutes from "./src/routes/product.js";
 
+import pageRoutes from "./src/routes/admin/page.js";
 // import initialData from "./src/routes/admin/initialData.js";
 const __dirname = path.resolve();
 
@@ -46,6 +47,7 @@ app.use("/api", categoryRoutes);
 app.use("/api", productRoutes);
 app.use("/api", cartRoutes);
 app.use("/api", initialDataRoutes);
+app.use("/api", pageRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`App Listing To Port ${process.env.PORT}`);

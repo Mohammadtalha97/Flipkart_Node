@@ -1,5 +1,22 @@
 import jwt from "jsonwebtoken";
 
+import multer from "multer";
+import path from "path";
+import shortid from "shortid";
+
+const __dirname = path.resolve();
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname + "\\src", "uploads"));
+  },
+  filename: function (req, file, cb) {
+    cb(null, shortid.generate() + "-" + file.originalname);
+  },
+});
+
+export const upload = multer({ storage });
+
 export const requireSignin = (req, res, next) => {
   if (req.headers.authorization) {
     const token = req.headers.authorization.split(" ")[1];

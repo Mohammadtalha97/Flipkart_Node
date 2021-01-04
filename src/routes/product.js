@@ -1,10 +1,11 @@
 import express from "express";
-import multer from "multer";
-import path from "path";
-import shortid from "shortid";
 
 import { adminMiddleware, requireSignin } from "../common-middleware/index.js";
 import { createProduct, getProductBySlug } from "../controller/product.js";
+
+import multer from "multer";
+import path from "path";
+import shortid from "shortid";
 
 const router = express.Router();
 const __dirname = path.resolve();
