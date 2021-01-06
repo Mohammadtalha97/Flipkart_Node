@@ -43,9 +43,8 @@ export const signup = (req, res) => {
 export const signin = (req, res) => {
   User.findOne({ email: req.body.email }).exec((error, user) => {
     if (error) res.status(400).json({ error });
-
     if (user) {
-      if (user.authenticate(req.body.password)) {
+      if (user.authenticate(req.body.password) && user.role === "user") {
         const token = jwt.sign(
           { _id: user._id, role: user.role },
           process.env.JWT_SECRET,
@@ -69,7 +68,7 @@ export const signin = (req, res) => {
         });
       } else {
         res.status(400).json({
-          message: "Invalid Password",
+          message: "Something went wrong",
         });
       }
     } else {

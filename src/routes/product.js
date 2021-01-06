@@ -1,11 +1,17 @@
 import express from "express";
 
 import { adminMiddleware, requireSignin } from "../common-middleware/index.js";
-import { createProduct, getProductBySlug } from "../controller/product.js";
+import {
+  createProduct,
+  getProductBySlug,
+  getProductDetailsById,
+} from "../controller/product.js";
 
 import multer from "multer";
 import path from "path";
 import shortid from "shortid";
+// import pkg from "../../../flipkart/flipkart-clone/src/redux/actions/index.js";
+// const { getProductDetailsById } = pkg;
 
 const router = express.Router();
 const __dirname = path.resolve();
@@ -29,5 +35,6 @@ router.post(
 );
 
 router.get("/products/:slug", getProductBySlug);
+router.get("/product/:productId", getProductDetailsById);
 
 export default router;
