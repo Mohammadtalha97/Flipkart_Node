@@ -41,7 +41,7 @@ export const getProductBySlug = (req, res) => {
   const { slug } = req.params;
 
   Category.findOne({ slug: slug })
-    .select("_id")
+    .select("_id type")
     .exec((error, category) => {
       if (error) {
         return res.status(400).json({ error });
@@ -53,25 +53,29 @@ export const getProductBySlug = (req, res) => {
             return res.status(400).json({ error });
           }
 
-          if (products.length > 0) {
-            res.status(200).json({
-              products,
-              productByPrice: {
-                under5k: products.filter((x) => x.price <= 5000),
-                under10k: products.filter(
-                  (x) => x.price >= 5000 && x.price <= 10000
-                ),
-                under15k: products.filter(
-                  (x) => x.price >= 10000 && x.price <= 15000
-                ),
-                under20k: products.filter(
-                  (x) => x.price >= 15000 && x.price <= 20000
-                ),
-                under30k: products.filter(
-                  (x) => x.price >= 20000 && x.price <= 30000
-                ),
-              },
-            });
+          if (category.type) {
+            if (products.length > 0) {
+              res.status(200).json({
+                products,
+                productByPrice: {
+                  under5k: products.filter((x) => x.price <= 5000),
+                  under10k: products.filter(
+                    (x) => x.price >= 5000 && x.price <= 10000
+                  ),
+                  under15k: products.filter(
+                    (x) => x.price >= 10000 && x.price <= 15000
+                  ),
+                  under20k: products.filter(
+                    (x) => x.price >= 15000 && x.price <= 20000
+                  ),
+                  under30k: products.filter(
+                    (x) => x.price >= 20000 && x.price <= 30000
+                  ),
+                },
+              });
+            }
+          } else {
+            res.status(200).json({ products });
           }
         });
       }

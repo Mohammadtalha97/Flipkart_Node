@@ -13,6 +13,8 @@ import productRoutes from "./src/routes/product.js";
 import testingRoutes from "./src/routes/testing.js";
 import pageRoutes from "./src/routes/admin/page.js";
 import getAddress from "./src/routes/address.js";
+import orderRoutes from "./src/routes/order.js";
+import admninOrderRoutes from "./src/routes/admin/order.router.js";
 // import initialData from "./src/routes/admin/initialData.js";
 const __dirname = path.resolve();
 
@@ -50,6 +52,8 @@ app.use("/api", cartRoutes);
 app.use("/api", initialDataRoutes);
 app.use("/api", pageRoutes);
 app.use("/api", getAddress);
+app.use("/api", orderRoutes);
+app.use("/api", admninOrderRoutes);
 app.use("/testing", testingRoutes);
 
 app.listen(process.env.PORT, () => {
